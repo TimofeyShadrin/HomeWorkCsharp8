@@ -1,20 +1,17 @@
 ﻿namespace Seminar8
 {
-    // Задача 54: Задайте двумерный массив. Напишите программу,
-    // которая упорядочит по возрастанию элементы каждой строки двумерного массива.
+    // Задайте прямоугольный двумерный массив. Напишите программу,
+    // которая будет находить строку с наименьшей суммой элементов.
     class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine();
-            Decision Matrix = new Decision(5, 8, 0, 11);
+            Decision Matrix = new Decision(6, 4, 0, 11);
             int[,] digits = Matrix.CreateIntArray();
-            Matrix.PrintArray(digits);
-            Console.WriteLine();
-            Matrix.SortArray(digits);
             Console.WriteLine();
             Matrix.PrintArray(digits);
-            Console.WriteLine();
+            int index = Matrix.IndexOfMinSumInString(digits);
+            Console.WriteLine($"\nMin sum in line No {index}\n");
         }
     }
 
@@ -58,37 +55,44 @@
             return randomArray;
         }
 
-        public int[,] SortArray(int[,] array)
-        {
-            int temp;
-            for (int k = 0; k < array.GetLength(0); k++)
-            {
-                for (int i = 0; i < array.GetLength(1) - 1; i++)
-                {
-                    for (int j = i + 1; j < array.GetLength(1); j++)
-                    {
-                        if (array[k, i] > array[k, j])
-                        {
-                            temp = array[k, i];
-                            array[k, i] = array[k, j];
-                            array[k, j] = temp;
-                        }
-                    }
-                }
-            }
-            return array;
-        }
-
         public void PrintArray(int[,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
+                Console.Write($"{i}: ");
                 for (int j = 0; j < array.GetLength(1); j++)
                 {
                     Console.Write($"{array[i, j]} ");
                 }
                 Console.WriteLine();
             }
+        }
+
+        public int IndexOfMinSumInString(int[,] array)
+        {
+            int minResult = 0;
+            for (int i = 0; i < array.GetLength(1); i++)
+            {
+                minResult += array[0, i];
+            }
+
+            int index = 0;
+            int result = 0;
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                result = 0;
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    result += array[i, j];
+                }
+                if (result < minResult)
+                {
+                    minResult = result;
+                    index = i;
+                }
+            }
+            return index;
         }
     }
 }
