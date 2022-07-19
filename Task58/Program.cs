@@ -1,17 +1,23 @@
 ﻿namespace Seminar8
 {
-    // Задайте прямоугольный двумерный массив. Напишите программу,
-    // которая будет находить строку с наименьшей суммой элементов.
+    // Задайте две матрицы. Напишите программу,
+    // которая выведет матрицу произведения элементов двух предыдущих матриц.
     class Program
     {
         public static void Main(string[] args)
         {
             Decision Matrix = new Decision(5, 4, 0, 11);
             int[,] digits = Matrix.CreateIntArray();
+            Decision Array = new Decision(4, 6, 0, 11);
+            int[,] numbers = Array.CreateIntArray();
             Console.WriteLine();
-            Matrix.PrintArray(digits);
-            int index = Matrix.IndexOfMinSumInString(digits);
-            Console.WriteLine($"\nMin sum in line No {index}\n");
+            Decision.PrintArray(digits);
+            Console.WriteLine("\nand\n");
+            Decision.PrintArray(numbers);
+            Console.WriteLine("\nis\n");
+            int[,] array = Decision.GetProductOfArrays(digits, numbers);
+            Decision.PrintArray(array);
+            Console.WriteLine();
         }
     }
 
@@ -55,11 +61,10 @@
             return randomArray;
         }
 
-        public void PrintArray(int[,] array)
+        public static void PrintArray(int[,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
-                Console.Write($"{i}: ");
                 for (int j = 0; j < array.GetLength(1); j++)
                 {
                     Console.Write($"{array[i, j]} ");
@@ -68,32 +73,23 @@
             }
         }
 
-        public int IndexOfMinSumInString(int[,] array)
+        public static int[,] GetProductOfArrays(int[,] digits, int[,] numbers)
         {
-            int minResult = 0;
-
-            for (int i = 0; i < array.GetLength(1); i++)
+            int sizeOfHeight = digits.GetLength(0);
+            if (sizeOfHeight > numbers.GetLength(0))
+                sizeOfHeight = numbers.GetLength(0);
+            int sizeOfLength = digits.GetLength(1);
+            if (sizeOfLength > numbers.GetLength(1))
+                sizeOfLength = numbers.GetLength(1);
+            int[,] array = new int[sizeOfHeight, sizeOfLength];
+            for (int i = 0; i < sizeOfHeight; i++)
             {
-                minResult += array[0, i];
-            }
-
-            int index = 0;
-            int result = 0;
-
-            for (int i = 1; i < array.GetLength(0); i++)
-            {
-                result = 0;
-                for (int j = 0; j < array.GetLength(1); j++)
+                for (int j = 0; j < sizeOfLength; j++)
                 {
-                    result += array[i, j];
-                }
-                if (result < minResult)
-                {
-                    minResult = result;
-                    index = i;
+                    array[i, j] = digits[i, j] * numbers[i, j];
                 }
             }
-            return index;
+            return array;
         }
     }
 }
