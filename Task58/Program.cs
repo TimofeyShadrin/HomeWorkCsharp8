@@ -73,14 +73,22 @@
             }
         }
 
+        /// <summary>
+        /// Метод создает новый массив из двух путем их произведения
+        /// </summary>
+        /// <param name="digits">Первый массив</param>
+        /// <param name="numbers">Второй массив</param>
+        /// <returns></returns>
         public static int[,] GetProductOfArrays(int[,] digits, int[,] numbers)
         {
             int sizeOfHeight = digits.GetLength(0);
             if (sizeOfHeight > numbers.GetLength(0))
                 sizeOfHeight = numbers.GetLength(0);
+
             int sizeOfLength = digits.GetLength(1);
             if (sizeOfLength > numbers.GetLength(1))
                 sizeOfLength = numbers.GetLength(1);
+
             int[,] array = new int[sizeOfHeight, sizeOfLength];
             for (int i = 0; i < sizeOfHeight; i++)
             {
