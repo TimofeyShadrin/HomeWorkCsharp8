@@ -24,9 +24,9 @@
             int i = 0;
             int j = 0;
             int size = array.GetLength(0);
-            if (size < array.GetLength(1))
+            if (size > array.GetLength(1))
                 size = array.GetLength(1);
-            while (i < (size / 2) && j < (size / 2))
+            while (count < size / 2)
             {
                 while (j < array.GetLength(1) - count)
                 {
@@ -51,11 +51,15 @@
                     j--;
                 }
                 j = 0 + count;
-                while (i > 1 + count)
+                if (count < size / 2 - 1)
                 {
-                    array[i, j] = digit;
-                    digit++;
-                    i--;
+                    i = array.GetLength(0) - 2 - count;
+                    while (i > 1 + count)
+                    {
+                        array[i, j] = digit;
+                        digit++;
+                        i--;
+                    }
                 }
                 count++;
             }
