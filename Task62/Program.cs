@@ -9,8 +9,8 @@
             int[,] array = new int[6, 6];
             Decision.PrintCurrentArray(array);
             Console.WriteLine();
-            Decision.FillArray(array);
-            Decision.PrintCurrentArray(array);
+            int[,] newArray = Spiral.FillArray(7, 5);
+            Decision.PrintCurrentArray(newArray);
             Console.WriteLine("\n");
         }
     }
